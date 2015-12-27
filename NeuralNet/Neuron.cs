@@ -11,7 +11,25 @@ public class Neuron
     private double output = double.MinValue;   // Preset value of neuron.
     private List<Weight> weights;              // Collection of weights to inputs.
 
+    double[,] testWeights = new double[,] { { .15, .20, }, { .25, .30, }, { .40, .45, }, { .50, .55 } };
+
     public Neuron() { }
+    static int sya = 0;
+    public Neuron(Layer inputs, int weight)
+    {
+        int index=0;
+
+        weights = new List<Weight>();
+        foreach (Neuron input in inputs)
+        {
+            Weight w = new Weight();
+            w.Input = input;
+            w.Value = testWeights[sya, index];
+            weights.Add(w);
+            index++;
+        }
+        sya++;
+    }
 
     /// <summary>
     /// Конструктор за инициализиране на неврон
@@ -27,6 +45,20 @@ public class Neuron
             w.Input = input;
             w.Value = rnd.NextDouble() * 2 - 1;
             weights.Add(w);
+        }
+    }
+
+    public Neuron(Layer inputs, List<double> weights)
+    {
+        int index = 0;
+        this.weights = new List<Weight>();
+        foreach (Neuron input in inputs)
+        {
+            Weight w = new Weight();
+            w.Input = input;
+            w.Value = weights[index++];
+            this.weights.Add(w);
+            index++;
         }
     }
 
@@ -67,6 +99,7 @@ public class Neuron
         for (int i = 0; i < weights.Count; i++)
         {
             weights[i].Value += learnRate * error * Derivative * weights[i].Input.Output;
+            //double dWeighr = learnRate * error * Derivative * weights[i].Input.Output;
         }
         bias += error * Derivative * learnRate;
     }

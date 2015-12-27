@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 public class Network : List<Layer>
 {
@@ -12,24 +13,41 @@ public class Network : List<Layer>
     /// </summary>
     /// <param name="dimensions"></param>
     /// <param name="file"></param>
-    public Network(int[] dimensions, string file)
+    public Network(int[] dimensions, string file, bool hasTraining = true)
     {
         this.dimensions = dimensions;
-        Initialise();
+        Initialise(hasTraining);
         LoadPatterns(file);
     }
 
     /// <summary>
     /// 
     /// </summary>
-    public void Initialise()
+    public void Initialise(bool hasTraining = true)
     {
-        base.Clear();
-        base.Add(new Layer(dimensions[0]));
-        for (int i = 1; i < dimensions.Length; i++)
+        if(hasTraining)
         {
-            base.Add(new Layer(dimensions[i], base[i - 1], new Random()));
+            base.Clear();
+            base.Add(new Layer(dimensions[0]));
+            for (int i = 1; i < dimensions.Length; i++)
+            {
+                base.Add(new Layer(dimensions[i], base[i - 1], new Random()));
+                //base.Add(new Layer(dimensions[i], base[i - 1], i-1));
+            }
         }
+        else
+        {
+            base.Clear();
+            base.Add(new Layer(dimensions[0]));
+            for (int i = 1; i < dimensions.Length; i++)
+            {
+                int count = 0;
+                int index = count;
+                count = dimensions[i - 1] * dimensions[i];
+                base.Add(new Layer(dimensions[i], base[i - 1], patterns[0].Weight.ToList().GetRange(index, count)));
+            }
+        }
+
     }
 
     /// <summary>
@@ -54,20 +72,33 @@ public class Network : List<Layer>
     /// <returns></returns>
     public double Train()
     {
+        double[] target = new double[] { 0.1, 0.99}; 
         double error = 0;
         foreach (Pattern pattern in patterns)
         {
             Activate(pattern);
+            //ConsolePrintOutput();
             for (int i = 0; i < Outputs.Count; i++)
             {
                 double delta = pattern.Outputs[i] - Outputs[i].Output;
+                //double delta = target[i] - Outputs[i].Output;
+                //Console.WriteLine("y:{0}\nO:{1}\ne:{2}\n", pattern.Outputs[i], Outputs[i].Output, delta);
+
                 Outputs[i].CollectError(delta);
-                error += Math.Pow(delta, 2)/2;
+                error += (1.0 / 2.0) * (Math.Pow(delta, 2));//Math.Pow(delta, 2)/2;
             }
             AdjustWeights();
         }
         return error;
     }
+
+    //public void ConsolePrintOutput()
+    //{
+    //    for (int i = 0; i < Outputs.Count; i++)
+    //    {
+    //        Console.WriteLine("{0}{1}", pattern.Outputs[i] - Outputs[i].Output , Outputs[i].Output);
+    //    }
+    //}
 
     /// <summary>
     /// Прав пас на обхождане на мрежата
@@ -150,7 +181,7 @@ public class Network : List<Layer>
     /// <summary>
     /// Входния слой на невронната мрежа
     /// </summary>
-    private Layer Inputs
+    public Layer Inputs
     {
         get { return base[0]; }
     }
@@ -158,7 +189,7 @@ public class Network : List<Layer>
     /// <summary>
     /// Изходен слой на мрежата
     /// </summary>
-    private Layer Outputs
+    public Layer Outputs
     {
         get { return base[base.Count - 1]; }
     }

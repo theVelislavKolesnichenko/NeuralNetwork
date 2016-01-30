@@ -1,0 +1,7 @@
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\TestProject\obj\Debug\TestProject.csprojResolveAssemblyReference.cache
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\TestProject\bin\Debug\TestProject.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\TestProject\obj\Debug\TestProject.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\TestProject\bin\Debug\TestProject.dll.config
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\TestProject\bin\Debug\TestProject.dll
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\TestProject\obj\Debug\TestProject.dll
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\TestProject\bin\Debug\TestProject.XML

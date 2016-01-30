@@ -9,7 +9,7 @@ using System.Linq;
 namespace TestProject
 {
     /// <summary>
-    /// Description of ImageConverter.
+    /// ImageConverter
     /// </summary>
     public static class ImageConverter
     {
@@ -46,7 +46,7 @@ namespace TestProject
             return lb.ToArray();
         }
 
-        public static double[] imageToDoubleArray(Image imageIn, int size)
+        public static List<double> imageToDoubleArray(Image imageIn, int size)
         {
             Bitmap bit = new Bitmap(imageIn);
             List<double> returnArrey = new List<double>();
@@ -57,14 +57,14 @@ namespace TestProject
             double index2 = 0;
             int H = bit.Height;
             int W = bit.Width;
-            while (H - endH > H / size)
+            while (H - endH >= H / size)
             {
                 int endW = 0;
                 int startH = endH;
                 endH += H / size;
                 index++;
                 //Console.WriteLine(endH);
-                while (W - endW > W / size)
+                while (W - endW >= W / size)
                 {
                     int startW = endW;
                     endW += W / size;
@@ -86,10 +86,7 @@ namespace TestProject
                     index2 = 0;
                 }
             }
-            returnArrey.Add(0);
-            returnArrey.Add(0);
-            returnArrey.Add(0);
-            return returnArrey.ToArray();
+            return returnArrey;
         }
 
         private static byte ImageRectangle(Bitmap bit, int startH, int startW, int height, int width)
@@ -179,6 +176,59 @@ namespace TestProject
         private static ImageCodecInfo GetEncoderInfo(ImageFormat format)
         {
             return ImageCodecInfo.GetImageDecoders().SingleOrDefault(c => c.FormatID == format.Guid);
+        }
+
+        public static bool ImagesToFile(string fileDir, string filePath, string delimiter)
+        {
+            //filePath = @"E:\test.csv";
+            //delimiter = ";";
+            //fileDir = @"E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NeuralNet\uprs\uprs";
+
+            Image inputImage;
+            foreach (Shapes value in Enum.GetValues(typeof(Shapes)))
+            {
+                string targetDirectory = string.Format("{0}\\{1}", fileDir, value.ToString());
+                //ProcessDirectory(targetDirectory);
+                string[] fileEntries = Directory.GetFiles(targetDirectory);
+                foreach (string fileName in fileEntries)
+                {
+                    inputImage = Image.FromFile(fileName);
+                    List<double> arr = ImageConverter.imageToDoubleArray(inputImage, 5);
+                    arr.AddRange(TargetEnd((int)value));
+                    File.AppendAllText(filePath, String.Join(delimiter, arr.Select(a => a.ToString())));
+                    File.AppendAllText(filePath, "\n");
+                }
+            }
+
+            return File.Exists(filePath);
+        }
+
+        public static List<double> TargetEnd(int shapes1)
+        {
+            List<double> end = new List<double>();
+            Shapes shapes = (Shapes)shapes1;
+            if (shapes == Shapes.circles)
+            {
+                end.Add(0);
+                end.Add(0);
+                end.Add(1);
+            }
+
+            if (shapes == Shapes.square)
+            {
+                end.Add(0);
+                end.Add(1);
+                end.Add(0);
+            }
+
+            if (shapes == Shapes.triangle)
+            {
+                end.Add(1);
+                end.Add(0);
+                end.Add(0);
+            }
+
+            return end;
         }
     }
 

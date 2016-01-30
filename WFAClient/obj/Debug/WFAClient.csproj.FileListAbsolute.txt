@@ -1,0 +1,16 @@
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\WFAClient.exe.config
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\WFAClient.exe
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\WFAClient.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\obj\Debug\WFAClient.csprojResolveAssemblyReference.cache
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\obj\Debug\WFAClient.Form1.resources
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\obj\Debug\WFAClient.Properties.Resources.resources
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\obj\Debug\WFAClient.csproj.GenerateResource.Cache
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\obj\Debug\WFAClient.exe
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\obj\Debug\WFAClient.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\NeuralNet.dll
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\TestProject.dll
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\NeuralNet.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\TestProject.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\WFAClient.XML
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\NeuralNet.xml
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\WFAClient\bin\Debug\TestProject.xml

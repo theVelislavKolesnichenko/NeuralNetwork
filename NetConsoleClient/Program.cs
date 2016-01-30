@@ -20,7 +20,7 @@ namespace NetConsoleClient
 
             int[] i = new int[] { 1, 2, 3 };
             int[] w = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
-            Network networkTest = new Network(new int[] { 3,3,3}, "test");
+            Network networkTest = new Network(new int[] { 3, 3, 3 }, "test");
 
             int[] dims = { 3, 3, 3 };
             string file = "test.csv";
@@ -38,7 +38,6 @@ namespace NetConsoleClient
                 Console.WriteLine("{0},error: {1}", era, error);
                 //Thread.Sleep(50);
                 //}
-
             }
 
 

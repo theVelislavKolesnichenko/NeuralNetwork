@@ -5,14 +5,20 @@ using System.Linq;
 
 public class Network : List<Layer>
 {
-    private int[] dimensions; //размера на невроната мрежа броя неврони на всеки слой
-    private List<Pattern> patterns; //входните данни и очакваните изходи
+    /// <summary>
+    /// размера на невроната мрежа броя неврони на всеки слой
+    /// </summary>
+    private int[] dimensions;
+    /// <summary>
+    /// входните данни и очакваните изходи
+    /// </summary>
+    private List<Pattern> patterns;
 
     /// <summary>
     /// Конструктор за инициализиране на мрежата
     /// </summary>
     /// <param name="dimensions"></param>
-    /// <param name="file"></param>
+    /// <param name="file">Име на файла с входните и еталонни данни</param>
     public Network(int[] dimensions, string file, bool hasTraining = true)
     {
         this.dimensions = dimensions;
@@ -21,7 +27,7 @@ public class Network : List<Layer>
     }
 
     /// <summary>
-    /// 
+    /// Инициализиране на мрежата
     /// </summary>
     public void Initialise(bool hasTraining = true)
     {
@@ -32,28 +38,26 @@ public class Network : List<Layer>
             for (int i = 1; i < dimensions.Length; i++)
             {
                 base.Add(new Layer(dimensions[i], base[i - 1], new Random()));
-                //base.Add(new Layer(dimensions[i], base[i - 1], i-1));
             }
         }
         else
         {
-            base.Clear();
-            base.Add(new Layer(dimensions[0]));
-            for (int i = 1; i < dimensions.Length; i++)
-            {
-                int count = 0;
-                int index = count;
-                count = dimensions[i - 1] * dimensions[i];
-                base.Add(new Layer(dimensions[i], base[i - 1], patterns[0].Weight.ToList().GetRange(index, count)));
-            }
+            //base.Clear();
+            //base.Add(new Layer(dimensions[0]));
+            //for (int i = 1; i < dimensions.Length; i++)
+            //{
+            //    int count = 0;
+            //    int index = count;
+            //    count = dimensions[i - 1] * dimensions[i];
+            //    base.Add(new Layer(dimensions[i], base[i - 1], patterns[0].Weight.ToList().GetRange(index, count)));
+            //}
         }
-
     }
 
     /// <summary>
     /// Инициализира входдните и очакваните данни на изхода 
     /// </summary>
-    /// <param name="file"></param>
+    /// <param name="file">>Име на файла с входните и еталонни данни</param>
     private void LoadPatterns(string file)
     {
         patterns = new List<Pattern>();
@@ -69,46 +73,54 @@ public class Network : List<Layer>
     /// <summary>
     /// Тренировка на невронната мрежа
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Средно квадратична грешка</returns>
     public double Train()
     {
-        double[] target = new double[] { 0.1, 0.99}; 
         double error = 0;
         foreach (Pattern pattern in patterns)
         {
             Activate(pattern);
-            //ConsolePrintOutput();
+
             for (int i = 0; i < Outputs.Count; i++)
             {
                 double delta = pattern.Outputs[i] - Outputs[i].Output;
-                //double delta = target[i] - Outputs[i].Output;
-                //Console.WriteLine("y:{0}\nO:{1}\ne:{2}\n", pattern.Outputs[i], Outputs[i].Output, delta);
 
                 Outputs[i].CollectError(delta);
-                error += (1.0 / 2.0) * (Math.Pow(delta, 2));//Math.Pow(delta, 2)/2;
+                error += (1.0 / 2.0) * (Math.Pow(delta, 2));
             }
             AdjustWeights();
         }
         return error;
     }
 
-    //public void ConsolePrintOutput()
-    //{
-    //    for (int i = 0; i < Outputs.Count; i++)
-    //    {
-    //        Console.WriteLine("{0}{1}", pattern.Outputs[i] - Outputs[i].Output , Outputs[i].Output);
-    //    }
-    //}
-
     /// <summary>
-    /// Прав пас на обхождане на мрежата
+    /// Прав пас на обхождане на мрежата за убочение със еталонни данни
     /// </summary>
-    /// <param name="pattern"></param>
+    /// <param name="pattern">Обект с входните и еталонни данни</param>
     private void Activate(Pattern pattern)
     {
         for (int i = 0; i < Inputs.Count; i++)
         {
             Inputs[i].Output = pattern.Inputs[i];
+        }
+        for (int i = 1; i < base.Count; i++)
+        {
+            foreach (Neuron neuron in base[i])
+            {
+                neuron.Activate();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Прав пас на обхождане на мрежата за класифициране на обекта
+    /// </summary>
+    /// <param name="input">Масив с описание на входния обект</param>
+    public void Activate(double[] input)
+    {
+        for (int i = 0; i < Inputs.Count; i++)
+        {
+            Inputs[i].Output = input[i];
         }
         for (int i = 1; i < base.Count; i++)
         {
@@ -131,51 +143,6 @@ public class Network : List<Layer>
                 neuron.AdjustWeights();
             }
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public List<double[]> HyperPlanes()
-    {
-        List<double[]> lines = new List<double[]>();
-        foreach (Neuron n in Outputs)
-        {
-            lines.Add(n.HyperPlane);
-        }
-        return lines;
-    }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public List<float[]> Points2D()
-    {
-        int penultimate = base.Count - 2;
-        //if (base[penultimate].Count != 2)
-        //{
-        //    throw new Exception("Penultimate layer must be 2D for graphing.");
-        //}
-        List<float[]> points = new List<float[]>();
-        for (int i = 0; i < patterns.Count; i++)
-        {
-            Activate(patterns[i]);
-            float[] point = new float[3];
-            point[0] = (float)base[penultimate][0].Output;
-            point[1] = (float)base[penultimate][1].Output;
-            if (Outputs.Count > 1)
-            {
-                point[2] = patterns[i].MaxOutput;
-            }
-            else
-            {
-                point[2] = (patterns[i].Outputs[0] >= 0.5) ? 1 : 0;
-            }
-            points.Add(point);
-        }
-        return points;
     }
 
     /// <summary>

@@ -3,39 +3,40 @@ using System.Collections.Generic;
 
 public class Neuron
 {
-    private double bias;                       // Bias value.
-    private double error;                      // Sum of error.
-    private double input;                      // Sum of inputs.
-    private double gradient = 5;               // Steepness of sigmoid curve.
-    private double learnRate = 0.01;           // Learning rate.
-    private double output = double.MinValue;   // Preset value of neuron.
-    private List<Weight> weights;              // Collection of weights to inputs.
+    private double error;                      // Сума от грешките на предходните неврони
+    private double input;                      // Входна сума
+    private double learnRate = 0.5;           // Убочаваща скорост
+    private double output = double.MinValue;   // Изхудна стоиност от неврона
+    private List<Weight> weights;              // Колекция от входните тегла
 
-    double[,] testWeights = new double[,] { { .15, .20, }, { .25, .30, }, { .40, .45, }, { .50, .55 } };
+    //double[,] testWeights = new double[,] { { .15, .20, }, { .25, .30, }, { .40, .45, }, { .50, .55 } };
+    //static int sya = 0;
+    //public Neuron(Layer inputs, int weight)
+    //{
+    //    int index=0;
 
+    //    weights = new List<Weight>();
+    //    foreach (Neuron input in inputs)
+    //    {
+    //        Weight w = new Weight();
+    //        w.Input = input;
+    //        w.Value = testWeights[sya, index];
+    //        weights.Add(w);
+    //        index++;
+    //    }
+    //    sya++;
+    //}
+
+    /// <summary>
+    /// Подразбиращ се конструктор
+    /// </summary>
     public Neuron() { }
-    static int sya = 0;
-    public Neuron(Layer inputs, int weight)
-    {
-        int index=0;
-
-        weights = new List<Weight>();
-        foreach (Neuron input in inputs)
-        {
-            Weight w = new Weight();
-            w.Input = input;
-            w.Value = testWeights[sya, index];
-            weights.Add(w);
-            index++;
-        }
-        sya++;
-    }
-
+    
     /// <summary>
     /// Конструктор за инициализиране на неврон
     /// </summary>
-    /// <param name="inputs"></param>
-    /// <param name="rnd"></param>
+    /// <param name="inputs">Списък с входни неврони</param>
+    /// <param name="rnd">Random обект за генериране на входните тегла</param>
     public Neuron(Layer inputs, Random rnd)
     {
         weights = new List<Weight>();
@@ -48,19 +49,19 @@ public class Neuron
         }
     }
 
-    public Neuron(Layer inputs, List<double> weights)
-    {
-        int index = 0;
-        this.weights = new List<Weight>();
-        foreach (Neuron input in inputs)
-        {
-            Weight w = new Weight();
-            w.Input = input;
-            w.Value = weights[index++];
-            this.weights.Add(w);
-            index++;
-        }
-    }
+    //public Neuron(Layer inputs, List<double> weights)
+    //{
+    //    int index = 0;
+    //    this.weights = new List<Weight>();
+    //    foreach (Neuron input in inputs)
+    //    {
+    //        Weight w = new Weight();
+    //        w.Input = input;
+    //        w.Value = weights[index++];
+    //        this.weights.Add(w);
+    //        index++;
+    //    }
+    //}
 
     /// <summary>
     /// Активиране на неврона
@@ -76,9 +77,9 @@ public class Neuron
     }
 
     /// <summary>
-    /// Обща грешка
+    /// Предаване на грешка във вътрешност
     /// </summary>
-    /// <param name="delta"></param>
+    /// <param name="delta">Грешката от предходния неврон</param>
     public void CollectError(double delta)
     {
         if (weights != null)
@@ -99,13 +100,11 @@ public class Neuron
         for (int i = 0; i < weights.Count; i++)
         {
             weights[i].Value += learnRate * error * Derivative * weights[i].Input.Output;
-            //double dWeighr = learnRate * error * Derivative * weights[i].Input.Output;
         }
-        bias += error * Derivative * learnRate;
     }
 
     /// <summary>
-    /// Първа производна
+    /// Първа производна на актвационата функция
     /// </summary>
     private double Derivative
     {
@@ -127,27 +126,11 @@ public class Neuron
             {
                 return output;
             }
-            //return 1 / (1 + Math.Exp(-gradient * (input + bias)));
-            return 1 / (1 + Math.Exp(-input));
+            return 1.0 / (1.0 + Math.Exp(-input));
         }
         set
         {
             output = value;
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public double[] HyperPlane
-    {
-        get
-        {
-            double[] line = new double[3];
-            line[0] = weights[0].Value;
-            line[1] = weights[1].Value;
-            line[2] = bias;
-            return line;
         }
     }
 }

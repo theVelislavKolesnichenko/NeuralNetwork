@@ -1,0 +1,6 @@
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NeuralNet\bin\Debug\NeuralNet.dll
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NeuralNet\bin\Debug\NeuralNet.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NeuralNet\obj\Debug\NeuralNet.csprojResolveAssemblyReference.cache
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NeuralNet\obj\Debug\NeuralNet.dll
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NeuralNet\obj\Debug\NeuralNet.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NeuralNet\bin\Debug\NeuralNet.XML

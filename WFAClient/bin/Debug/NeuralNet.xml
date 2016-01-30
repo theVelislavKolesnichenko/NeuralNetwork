@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NeuralNet</name>
+    </assembly>
+    <members>
+        <member name="M:Layer.#ctor(System.Int32)">
+            <summary>
+            Конструктор за първия слои
+            </summary>
+            <param name="size">Брой неврони в слоя</param>
+        </member>
+        <member name="M:Layer.#ctor(System.Int32,Layer,System.Random)">
+            <summary>
+            Конструктор за N+1 слои
+            </summary>
+            <param name="size">Брой неврони в слоя</param>
+            <param name="layer">Предходен неврон</param>
+            <param name="rnd">Random обект за генериране на произволно тегло</param>
+        </member>
+        <member name="F:Network.dimensions">
+            <summary>
+            размера на невроната мрежа броя неврони на всеки слой
+            </summary>
+        </member>
+        <member name="F:Network.patterns">
+            <summary>
+            входните данни и очакваните изходи
+            </summary>
+        </member>
+        <member name="M:Network.#ctor(System.Int32[],System.String,System.Boolean)">
+            <summary>
+            Конструктор за инициализиране на мрежата
+            </summary>
+            <param name="dimensions"></param>
+            <param name="file">Име на файла с входните и еталонни данни</param>
+        </member>
+        <member name="M:Network.Initialise(System.Boolean)">
+            <summary>
+            Инициализиране на мрежата
+            </summary>
+        </member>
+        <member name="M:Network.LoadPatterns(System.String)">
+            <summary>
+            Инициализира входдните и очакваните данни на изхода 
+            </summary>
+            <param name="file">>Име на файла с входните и еталонни данни</param>
+        </member>
+        <member name="M:Network.Train">
+            <summary>
+            Тренировка на невронната мрежа
+            </summary>
+            <returns>Средно квадратична грешка</returns>
+        </member>
+        <member name="M:Network.Activate(Pattern)">
+            <summary>
+            Прав пас на обхождане на мрежата за убочение със еталонни данни
+            </summary>
+            <param name="pattern">Обект с входните и еталонни данни</param>
+        </member>
+        <member name="M:Network.Activate(System.Double[])">
+            <summary>
+            Прав пас на обхождане на мрежата за класифициране на обекта
+            </summary>
+            <param name="input">Масив с описание на входния обект</param>
+        </member>
+        <member name="M:Network.AdjustWeights">
+            <summary>
+            Коригиране на теглата
+            </summary>
+        </member>
+        <member name="P:Network.Inputs">
+            <summary>
+            Входния слой на невронната мрежа
+            </summary>
+        </member>
+        <member name="P:Network.Outputs">
+            <summary>
+            Изходен слой на мрежата
+            </summary>
+        </member>
+        <member name="M:Neuron.#ctor">
+            <summary>
+            Подразбиращ се конструктор
+            </summary>
+        </member>
+        <member name="M:Neuron.#ctor(Layer,System.Random)">
+            <summary>
+            Конструктор за инициализиране на неврон
+            </summary>
+            <param name="inputs">Списък с входни неврони</param>
+            <param name="rnd">Random обект за генериране на входните тегла</param>
+        </member>
+        <member name="M:Neuron.Activate">
+            <summary>
+            Активиране на неврона
+            </summary>
+        </member>
+        <member name="M:Neuron.CollectError(System.Double)">
+            <summary>
+            Предаване на грешка във вътрешност
+            </summary>
+            <param name="delta">Грешката от предходния неврон</param>
+        </member>
+        <member name="M:Neuron.AdjustWeights">
+            <summary>
+            Коригиране на теглата 
+            </summary>
+        </member>
+        <member name="P:Neuron.Derivative">
+            <summary>
+            Първа производна на актвационата функция
+            </summary>
+        </member>
+        <member name="P:Neuron.Output">
+            <summary>
+            Изход от неврона
+            </summary>
+        </member>
+        <member name="F:Pattern.inputs">
+            <summary>
+            Масив от входни данни
+            </summary>
+        </member>
+        <member name="F:Pattern.outputs">
+            <summary>
+            Масив от еталони данни на изхода
+            </summary>
+        </member>
+        <member name="M:Pattern.#ctor(System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Конструктор на модела с входмите и еталонните данни
+            </summary>
+            <param name="value">Стойности от входните данни и очакваните изходи</param>
+            <param name="inputDims">Броя на входните неврони</param>
+            <param name="outputDims">Броя на изходните неврони</param>
+        </member>
+        <member name="M:Pattern.InitializesTraining(System.String,System.Int32,System.Int32)">
+            <summary>
+            Попълване на обекта със данни
+            </summary>
+            <param name="value">Стойности от входните данни и очакваните изходи</param>
+            <param name="inputDims">Броя на входните неврони</param>
+            <param name="outputDims">Броя на изходните неврони</param>
+        </member>
+        <member name="P:Pattern.Inputs">
+            <summary>
+            Списък от входните данни
+            </summary>
+        </member>
+        <member name="P:Pattern.Outputs">
+            <summary>
+            Списък от изходните данни
+            </summary>
+        </member>
+        <member name="F:Weight.Input">
+            <summary>
+            Входен неврон
+            </summary>
+        </member>
+        <member name="F:Weight.Value">
+            <summary>
+            Стоиност на теглото
+            </summary>
+        </member>
+    </members>
+</doc>

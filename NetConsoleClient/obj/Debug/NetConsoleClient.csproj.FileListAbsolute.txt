@@ -1,0 +1,10 @@
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\bin\Debug\NetConsoleClient.exe.config
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\bin\Debug\NetConsoleClient.exe
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\bin\Debug\NetConsoleClient.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\bin\Debug\NeuralNet.dll
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\bin\Debug\NeuralNet.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\obj\Debug\NetConsoleClient.csprojResolveAssemblyReference.cache
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\obj\Debug\NetConsoleClient.exe
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\obj\Debug\NetConsoleClient.pdb
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\bin\Debug\NetConsoleClient.XML
+E:\DevRepository\VisualStudio\CPlusPlus\NeuralNetwork\NetConsoleClient\bin\Debug\NeuralNet.xml
